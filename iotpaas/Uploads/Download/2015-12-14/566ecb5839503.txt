@@ -1,0 +1,9 @@
+README:
+
+  由于eclipse_php 里的SVN插件过于陈旧，不能提交更新代码。所以安装了windows版的SVN客户端，
+
+
+  由于大家修改的代码都Application目录下，所以，只要打开左边上  Application-SRC的目录，在该目录下，点击鼠标右键，进行代码update 或者commit
+  
+  
+  

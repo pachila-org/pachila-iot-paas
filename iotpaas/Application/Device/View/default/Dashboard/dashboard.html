@@ -1,0 +1,121 @@
+<extend name="Public/base"/>
+
+<block name="script">
+    <script type="text/javascript" src="__JS__/chart.js"></script>
+</block>
+<block name="body">
+
+    <div class="with-padding-lg">
+        <div class="count clearfix">
+            <div class="col-xs-4 text-center">
+                <a href="{:U('product/index')}" class="with-padding-lg bg-special">
+                    <i class="icon-tasks"></i>
+                    {$count.all_product}
+                    <br/>
+                    所有产品数
+                </a>
+            </div>
+            <div class="col-xs-4 text-center">
+                <a class="with-padding-lg bg-info" style="background: rgb(96, 210, 149)" href="{:U('product/index')}"><i class="icon-user"></i>
+                    {$count.all_device} <br/>
+                    有设备接入的产品数</a>
+            </div>
+            <div class="col-xs-4 text-center">
+                <a class="with-padding-lg bg-danger" style="background: rgb(241, 50, 0)" href="{:U('product/index')}">
+                    <i class="icon-group">
+                    </i>
+                    {$count.active_device}
+                    <br/>
+                    没有设备接入的产品数
+                </a>
+            </div>
+            
+            <div class="col-xs-4 text-center">
+            	<div id="productPie" height="400"></div>
+            </div>
+            
+        </div>
+    </div>
+
+
+    <div class="clearfix">
+        <div class="col-xs-4">
+
+        </div>
+        <div class="col-xs-4">
+
+        </div>
+        <div class="col-xs-4">
+
+        </div>
+
+    </div>
+    
+    <div class="with-padding-lg">
+        <div class="count clearfix">
+            <div class="col-xs-4 text-center">
+                <a class="with-padding-lg bg-info" href="{:U('Device/index')}">
+                <i class="icon-user"></i>
+			       	{$count.all_device} <br/>所有的设备数
+			    </a>
+            </div>
+            <div class="col-xs-4 text-center">
+                <a class="with-padding-lg bg-danger" style="background: rgb(96, 210, 149)" href="{:U('Device/index')}">
+                    <i class="icon-group"></i>
+                    {$count.active_device}<br/>激活的设备数
+                </a>
+            </div>
+            <div class="col-xs-4 text-center">
+                <a class="with-padding-lg bg-info" style="background: rgb(241, 50, 0)" href="{:U('Device/index')}"><i class="icon-user"></i>
+                    {$count.un_active_device} <br/>未激活的设备数</a>
+            </div> 
+        </div>
+    </div>
+    
+    <div class="with-padding-lg" style="position: relative">
+        <canvas id="devicePie" width="400" height="400"></canvas>
+    </div>
+    
+    <script>
+        $(function () {
+        	var data = {
+        		    labels: [
+        		        "Red",
+        		        "Green",
+        		        "Yellow"
+        		    ],
+        		    datasets: [
+        		        {
+        		            data: [300, 50, 100],
+        		            backgroundColor: [
+        		                "#FF6384",
+        		                "#36A2EB",
+        		                "#FFCE56"
+        		            ],
+        		            hoverBackgroundColor: [
+        		                "#FF6384",
+        		                "#36A2EB",
+        		                "#FFCE56"
+        		            ]
+        		        }]
+        		};
+			
+			// 图表配置项，可以留空来使用默认的配置
+			var options = {
+					responsive: true, // 展示标签
+			};
+        	
+			var ctx = document.getElementById("devicePie").getContext("2d");
+			window.devicePie = new Chart(ctx,{
+                type: 'pie',
+                data: data,
+                options: options
+            });
+        });
+
+
+    </script>
+    
+    
+
+</block>

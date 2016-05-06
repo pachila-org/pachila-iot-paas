@@ -1,0 +1,5 @@
+ 1. 数据表规范命名
+ 2. 包重新命名
+ 3. inbound 应用拆分（inbound.设备端）
+ 4. iotbase (usercore + inbound.App端)
+ 5. 

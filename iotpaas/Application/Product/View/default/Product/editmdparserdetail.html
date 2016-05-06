@@ -1,0 +1,124 @@
+
+    <div class="with-padding">
+        <form action="{:U()}" method="post" class="form-horizontal" >
+         <input type="hidden" name="metadata_id" value="{$metadata_id}" class="text input-large"/>
+         <input type="hidden" name="product_id" value="{$product_id}" class="text input-large"/>
+	     <ul class="channel-ul">
+	        <volist name="list" id="nav">
+	            <li class="clearfix pLi" >
+				    <input name="rule[part_no][]" class="sort" style="display: none" value=''>
+				    <div class="pull-left nav_list">
+				        <select name="rule[part_type][]" class="form-control nav-type" style="width: 100px;">
+				            <volist name="part_type_ops" id="option">
+				                <php>
+				                    $selected = $nav['part_type']==$key ? 'selected' : '';
+				                </php>
+				                <option value="{$key}"
+				                {$selected}>{$option|htmlspecialchars}</option>
+				            </volist>
+				        </select>
+				        <input name="rule[part_length][]" placeholder="输入该部分长度" class="form-control" style="width: 100px;" value="{$nav.part_length}">
+				        <input name="rule[part_value][]" placeholder="输入该部分值"   class="form-control" style="width: 100px;" value="{$nav.part_value}">
+				    </div>
+				
+				    <div class='pull-left i-list'>				
+				        <a href="javascript:" title="添加" class="add-one"><i class="icon icon-plus"></i></a>
+				        <a href="javascript:"  title="移除" class="remove-li"><i class="icon icon-remove"></i></a>
+				        <a href="javascript:" title="移动排序"><i class="icon icon-move sort-handle-1"></i></a>
+				    </div>
+				
+				</li>
+	        </volist>
+	     </ul>
+            <div class="form-item with-padding">
+                <a class="btn ajax-post no-refresh" url="{:U()}" target-form="form-horizontal">确 定</a>
+                <a onclick="$('.close').click();" class="btn btn-default">取消</a>
+            </div>
+        </form>
+    </div>
+    
+    <div id="one-nav" class="hide">  <!-- sample nav -->
+    
+    	<li class="clearfix pLi" >
+		    <input name="rule[part_no][]" class="sort" style="display: none" >
+		    <div class="pull-left nav_list">
+		        <select name="rule[part_type][]" class="form-control nav-type" style="width: 100px;">
+		            <volist name="part_type_ops" id="option">
+		                <php>
+		                    $selected = $nav['part_type']==$key ? 'selected' : '';
+		                </php>
+		                <option value="{$key}"
+		                {$selected}>{$option|htmlspecialchars}</option>
+		            </volist>
+		        </select>
+		        <input name="rule[part_length][]" placeholder="输入该部分长度" class="form-control" style="width: 100px;" value="{$nav.part_length}">
+		        <input name="rule[part_value][]" placeholder="输入该部分值"   class="form-control" style="width: 100px;" value="{$nav.part_value}">
+		    </div>
+		
+		    <div class='pull-left i-list'>		
+		        <a href="javascript:" title="添加" class="add-one"><i class="icon icon-plus"></i></a>
+		        <a href="javascript:"  title="移除" class="remove-li"><i class="icon icon-remove"></i></a>
+		        <a href="javascript:" title="移动排序"><i class="icon icon-move sort-handle-1"></i></a>
+		    </div>
+		
+		</li>
+    
+    </div>
+    
+<script type="text/javascript" src="__JS__/common.js"></script>
+<script type="text/javascript" src="__JS__/com/com.toast.class.js"></script>
+
+    <script>
+	    
+	    var re_bind = function () {
+	    	add_one();
+	    	remove_li();
+	    	fix_form();
+	    	add_flag();
+	    }
+	    
+	    var add_one = function () {
+	        $('.add-one').unbind('click');
+	        $('.add-one').click(function () {
+	            $(this).closest('.pLi').after($('#one-nav').html());
+	            re_bind();
+	        })
+	    }
+	    
+	    var remove_li = function () {
+	        $('.remove-li').unbind('click');
+	        $('.remove-li').click(function () {
+	            if( $(this).parents('form').find('.pLi').length > 1){
+	                $(this).closest('li').remove();
+	                re_bind();
+	            }else{
+	                updateAlert('不能再减了~');
+	            }
+	
+	        })
+	    }
+	    
+	    var fix_form = function () {
+	        $('.channel-ul').sortable({trigger: '.sort-handle-1', selector: 'li', dragCssClass: '',finish:function(){
+	            re_bind()
+	        }
+	        });
+	        
+
+	    }
+	    
+	    var add_flag = function () {
+	        $('.channel-ul .pLi').each(function (index, element) {
+	            $(this).attr('data-id', index);
+	            $(this).find('.sort').val($(this).attr('data-order'));
+	        })
+	        
+	    }
+
+	    
+	    $(function () {
+	    	re_bind();
+	    });
+    
+    </script>
+

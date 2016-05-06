@@ -1,0 +1,156 @@
+/*==============================================================*/
+/* DBMS name:      MySQL 5.0                                    */
+/* Created on:     12/10/2015 11:02:40 PM                       */
+/*==============================================================*/
+
+
+drop table if exists iot_connect_module;
+
+drop table if exists iot_digital_parse_rule;
+
+drop table if exists iot_metadata;
+
+drop table if exists iot_module_firmware;
+
+drop table if exists iot_product;
+
+drop table if exists iot_product_firmware;
+
+drop table if exists iot_product_metadata;
+
+/*==============================================================*/
+/* Table: iot_connect_module                                    */
+/*==============================================================*/
+create table iot_connect_module
+(
+   id                   int(11) not null,
+   module_type          varchar(16),
+   module_name          varchar(64),
+   vendor_name          varchar(64),
+   create_time          int not null,
+   update_time          int not null,
+   status               tinyint not null,
+   primary key (id)
+);
+
+/*==============================================================*/
+/* Table: iot_digital_parse_rule                                */
+/*==============================================================*/
+create table iot_digital_parse_rule
+(
+   id                   int(11) not null auto_increment,
+   metadata_id          int not null,
+   part_no              int not null,
+   part_type            tinyint not null,
+   part_length          int not null,
+   part_value           varchar(16),
+   primary key (id)
+);
+
+/*==============================================================*/
+/* Table: iot_metadata                                          */
+/*==============================================================*/
+create table iot_metadata
+(
+   id                   int(11) not null auto_increment,
+   md_type              tinyint not null,
+   md_code              varchar(16) not null,
+   md_name              varchar(32) not null,
+   md_value_type        varchar(16) not null,
+   md_scope             varchar(16) not null,
+   md_description       text,
+   md_owner_code        varchar(32) default NULL,
+   create_time          int not null,
+   update_time          int not null,
+   status               tinyint not null,
+   primary key (id)
+)
+ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+
+/*==============================================================*/
+/* Table: iot_module_firmware                                   */
+/*==============================================================*/
+create table iot_module_firmware
+(
+   id                   int(11) not null,
+   module_id            int,
+   firmware_name        varchar(64),
+   firmware_version     varchar(32),
+   md5str               varchar(128),
+   file_num             int,
+   file_name            varchar(64),
+   file_path            varchar(256),
+   create_time          int not null,
+   update_time          int not null,
+   status               tinyint not null,
+   primary key (id)
+);
+
+/*==============================================================*/
+/* Table: iot_product                                           */
+/*==============================================================*/
+create table iot_product
+(
+   id                   int(11) not null,
+   product_type         tinyint,
+   product_code         varchar(16),
+   product_name         varchar(32),
+   logo_img             varchar(32),
+   logo_length          int,
+   logo_height          int,
+   create_time          int not null,
+   update_time          int not null,
+   status               tinyint not null,
+   primary key (id)
+);
+
+/*==============================================================*/
+/* Table: iot_product_firmware                                  */
+/*==============================================================*/
+create table iot_product_firmware
+(
+   id                   int(11) not null,
+   product_id           int not null,
+   firmware_id          int not null,
+   create_time          int not null,
+   update_time          int not null,
+   status               tinyint not null,
+   primary key (id)
+);
+
+/*==============================================================*/
+/* Table: iot_product_metadata                                  */
+/*==============================================================*/
+create table iot_product_metadata
+(
+   id                   int(11) not null,
+   product_id           int not null,
+   metadata_id          int not null,
+   parser_type          tinyint not null,
+   parser_attr_1        varchar(128),
+   parser_attr_2        varchar(128),
+   parser_attr_3        varchar(128),
+   ext_attr_1           varchar(128),
+   ext_attr_2           varchar(128),
+   ext_attr_3           varchar(128),
+   primary key (id)
+);
+
+alter table iot_digital_parse_rule add constraint FK_metadata_parse_relation foreign key (metadata_id)
+      references iot_metadata (id) on delete restrict on update restrict;
+
+alter table iot_module_firmware add constraint FK_firmware_module foreign key (module_id)
+      references iot_connect_module (id) on delete restrict on update restrict;
+
+alter table iot_product_firmware add constraint FK_product_firmware_lef foreign key (product_id)
+      references iot_product (id) on delete restrict on update restrict;
+
+alter table iot_product_firmware add constraint FK_product_firware_right foreign key (firmware_id)
+      references iot_module_firmware (id) on delete restrict on update restrict;
+
+alter table iot_product_metadata add constraint FK_FK_proudct_metadata_left foreign key (product_id)
+      references iot_product (id) on delete restrict on update restrict;
+
+alter table iot_product_metadata add constraint FK_proudct_metadata_right foreign key (metadata_id)
+      references iot_metadata (id) on delete restrict on update restrict;
+

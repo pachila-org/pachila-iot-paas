@@ -1,0 +1,25 @@
+# Sample Code
+===========
+
+依赖:
+
+  * [Openssl](http://openssl.org/)
+  * [mosquitto](http://mosquitto.org/) : 开源的mqtt实现
+  * [HttpParser](https://github.com/nodejs/http-parser)
+  * 本代码可以直接运行在 Mac OSX 10.x 以上
+
+mac平台:
+
+  * mac下可以利用homebrew 安装openssl 和 mosquitto
+ 
+	```c
+	brew install openssl
+	brew install mosquitto
+	```
+	
+  * 将工程直接导入Xcode里, 修改config.h当中的APP_KEY,APP_SECRET, DEVICE_ID, DEVICE_SECRET
+  * 直接运行,即可看到效果
+
+Linux/Unix平台:
+
+  * 需要自己编译openssl, mosquitto, 然后link

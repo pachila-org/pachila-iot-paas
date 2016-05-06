@@ -1,0 +1,100 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{$meta_title}|OpenCenter管理后台</title>
+    <link href="__ROOT__/Public/favicon.ico" type="image/x-icon" rel="shortcut icon">
+
+
+    <!--zui-->
+    <link rel="stylesheet" type="text/css" href="__ZUI__/css/zui.css" media="all">
+    <link rel="stylesheet" type="text/css" href="__CSS__/admin.css" media="all">
+    <link rel="stylesheet" type="text/css" href="__CSS__/ext.css" media="all">
+    <!--zui end-->
+
+    <!--
+        <link rel="stylesheet" type="text/css" href="__CSS__/base.css" media="all">
+        <link rel="stylesheet" type="text/css" href="__CSS__/common.css" media="all"-->
+    <link rel="stylesheet" type="text/css" href="__CSS__/module.css">
+    <link rel="stylesheet" type="text/css" href="__CSS__/style.css" media="all">
+    <!--<link rel="stylesheet" type="text/css" href="__CSS__/{$Think.config.COLOR_STYLE}.css" media="all">-->
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="__STATIC__/jquery-1.10.2.min.js"></script>
+    <![endif]--><!--[if gte IE 9]><!-->
+    <script type="text/javascript" src="__PUBLIC__/js/jquery-2.0.3.min.js"></script>
+    <script type="text/javascript" src="__JS__/jquery.mousewheel.js"></script>
+    <!--<![endif]-->
+    <block name="style"></block>
+    <script type="text/javascript">
+        var ThinkPHP = window.Think = {
+            "ROOT": "__ROOT__", //当前网站地址
+            "APP": "__APP__", //当前项目地址
+            "PUBLIC": "__PUBLIC__", //项目公共目录地址
+            "DEEP": "{:C('URL_PATHINFO_DEPR')}", //PATHINFO分割符
+            "MODEL": ["{:C('URL_MODEL')}", "{:C('URL_CASE_INSENSITIVE')}", "{:C('URL_HTML_SUFFIX')}"],
+            "VAR": ["{:C('VAR_MODULE')}", "{:C('VAR_CONTROLLER')}", "{:C('VAR_ACTION')}"],
+            'URL_MODEL': "{:C('URL_MODEL')}"
+        }
+    </script>
+</head>
+<body>
+<style>
+
+</style>
+
+
+
+<script>
+    $(function () {
+        var config = {
+            '.chosen-select'           : {search_contains: true, drop_width: 400,no_results_text:'找不到匹配的选项'},
+            '.report-select'           : {search_contains: true, width: '400px',no_results_text:'找不到匹配的选项'}
+        };
+        for (var selector in config) {
+            $(selector).chosen(config[selector]);
+        }
+
+    });
+</script>
+
+
+<script src="__ZUI__/lib/chosen/chosen.js"></script>
+<link href="__ZUI__/lib/chosen/chosen.css" type="text/css" rel="stylesheet">
+
+
+
+
+<!-- 内容区 -->
+
+<!-- /内容区 -->
+
+<script type="text/javascript" src="__STATIC__/think.js"></script>
+
+<!--zui-->
+<script type="text/javascript" src="__JS__/common.js"></script>
+<script type="text/javascript" src="__JS__/com/com.toast.class.js"></script>
+<script type="text/javascript" src="__ZUI__/js/zui.js"></script>
+<script type="text/javascript" src="__ZUI__/lib/autotrigger/autotrigger.min.js"></script>
+<!--zui end-->
+<link rel="stylesheet" type="text/css" href="__JS__/kanban/kanban.css" media="all">
+<script type="text/javascript" src="__JS__/kanban/kanban.js"></script>
+<!--优化系统DUMP显示方式@mingyangliu-->
+<script type="text/javascript">
+if ( $("pre").length > 0 ) { 
+document.writeln("<div id=\"mydump\"  style=\"position: fixed;z-index: 999;top:0;height:400px;width: 500px;OVERFLOW:auto;\" ></div>");
+$("pre").appendTo('#mydump'); 
+document.writeln("<div style=\"z-index:9999;height:30px;float:right;text-align: right;overflow:hidden;position:fixed;bottom:0;right:150px;color:#000;line-height:30px;cursor:pointer;\">");
+document.writeln("<a style=\"background-color: rgb(255, 255, 255);float: right;\"href=JavaScript:; class=\"STYLE1\" onclick=\"document.all.mydump.style.display=`none`;\">[隐藏DUMP数据]</a>");
+document.writeln("<a style=\"background-color: rgb(255, 255, 255);float: right;\"href=JavaScript:; class=\"STYLE1\" onclick=\"document.all.mydump.style.display=`block`;\">[显示DUMP数据]</a>");
+document.writeln("</div>");
+}
+</script>
+
+<div class="panel-main" style="float:left;">
+ 	<div class="admin-main-container">
+        <block name="body"></block>
+    </div>
+</div>
+<block name="script"></block>
+</body>
+</html>
